@@ -1,0 +1,263 @@
+{
+	"variables": [],
+	"info": {
+		"name": "UrthePlatform",
+		"_postman_id": "198c86fe-7c2b-419d-419f-be5fd8df5e31",
+		"description": "A collection of APIs and services for monitoring our ever-changing planet.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Archive",
+			"description": "A collection of all Earth observation data available on the UrtheCast platform.\n\n<a href=\"https://developers.urthecast.com/docs/archive\">View Documentation</a>",
+			"item": [
+				{
+					"name": "Query All Scenes",
+					"request": {
+						"url": "https://api.urthecast.com/v1/archive/scenes?api_key={{api_key}}&api_secret={{api_secret}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of scenes from all sensors."
+					},
+					"response": []
+				},
+				{
+					"name": "Query Deimos-1 Scenes",
+					"request": {
+						"url": "https://api.urthecast.com/v1/archive/scenes?api_key={{api_key}}&api_secret={{api_secret}}&sensor_platform=deimos-1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of Deimos-1 scenes."
+					},
+					"response": []
+				},
+				{
+					"name": "Query Theia Scenes with <= 20% Cloud Coverage",
+					"request": {
+						"url": "https://api.urthecast.com/v1/archive/scenes?api_key={{api_key}}&api_secret={{api_secret}}&sensor_platform=theia&cloud_coverage_lte=20",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of Theia scenes with less than or equal to 20% cloud coverage."
+					},
+					"response": []
+				},
+				{
+					"name": "Query All Scenes From June 2016 with <= 20% Cloud Coverage",
+					"request": {
+						"url": "https://api.urthecast.com/v1/archive/scenes?api_key={{api_key}}&api_secret={{api_secret}}&cloud_coverage_lte=20&acquired_gte=2016-06-01&acquired_lte=2016-06-30",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of scenes from June 2016 with less than or equal to 20% cloud coverage."
+					},
+					"response": []
+				},
+				{
+					"name": "Query All Scenes That Intersect with San Francisco",
+					"request": {
+						"url": "https://api.urthecast.com/v1/archive/scenes?api_key={{api_key}}&api_secret={{api_secret}}&geometry_intersects=POLYGON((-122.54768371582031 37.81813265673152,-122.33894348144531 37.81813265673152,-122.33894348144531 37.669359153119615,-122.54768371582031 37.669359153119615,-122.54768371582031 37.81813265673152))",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of scenes that intersect with San Francisco using Well Known Text."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Areas of Interest",
+			"description": "The Areas of Interest (AOIs) API is designed to help you track and monitor your areas of interest on the planet. Once you've created an AOI, you can use its id to filter requests to our Scene Archive, Satellite Tracker, and Events APIs.\n\n<a href=\"https://developers.urthecast.com/docs/aois\">View Documentation</a>",
+			"item": [
+				{
+					"name": "Query Areas of Interest",
+					"request": {
+						"url": "https://api.urthecast.com/v1/consumers/apps/me/aois?api_key={{api_key}}&api_secret={{api_secret}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of AOIs that belong to this app key."
+					},
+					"response": []
+				},
+				{
+					"name": "Create an AOI of San Francisco",
+					"request": {
+						"url": "https://api.urthecast.com/v1/consumers/apps/me/aois?api_key={{api_key}}&api_secret={{api_secret}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"San Francisco\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-122.51747131347655,37.71261539271678],[-122.51747131347655,37.82036164330873],[-122.35507965087889,37.82036164330873],[-122.35507965087889,37.71261539271678],[-122.51747131347655,37.71261539271678]]]}}"
+						},
+						"description": "Create an Area of Interest of San Francisco using GeoJSON."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"description": "The Events API allows you to monitor activity happening on the Urthecast platform. For instance, an event is fired each time a new scene is tiled (formatted to be displayed as a map tile).\n\n<a href=\"https://developers.urthecast.com/docs/events\">View Documentation</a>",
+			"item": [
+				{
+					"name": "Query All Events",
+					"request": {
+						"url": "https://api.urthecast.com/v1/event_streams/events?api_key={{api_key}}&api_secret={{api_secret}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"San Francisco\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-122.51747131347655,37.71261539271678],[-122.51747131347655,37.82036164330873],[-122.35507965087889,37.82036164330873],[-122.35507965087889,37.71261539271678],[-122.51747131347655,37.71261539271678]]]}}"
+						},
+						"description": "Return a list of all Events on the UrthePlatform."
+					},
+					"response": []
+				},
+				{
+					"name": "Query 5 Most Recent Events",
+					"request": {
+						"url": "https://api.urthecast.com/v1/event_streams/events?api_key={{api_key}}&api_secret={{api_secret}}&sort=-created&limit=5",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"San Francisco\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-122.51747131347655,37.71261539271678],[-122.51747131347655,37.82036164330873],[-122.35507965087889,37.82036164330873],[-122.35507965087889,37.71261539271678],[-122.51747131347655,37.71261539271678]]]}}"
+						},
+						"description": "Return a list of the five most recent Events on the UrthePlatform."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Satellite Tracker",
+			"description": "Find out where a satellite was, is, and will be in the future. The API currently supports the ISS, Deimos, and Landsat 8 satellites. Besides our catalog of satellites and senor platforms, there are three subresources within the Satellite Tracker API: orbit points, forecasts, and two-line element sets.\n\n<a href=\"https://developers.urthecast.com/docs/satellite-tracker\">View Documentation</a>",
+			"item": [
+				{
+					"name": "Query Satellites",
+					"request": {
+						"url": "https://api.urthecast.com/v1/satellite_tracker/satellites?api_key={{api_key}}&api_secret={{api_secret}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of supported satellites."
+					},
+					"response": []
+				},
+				{
+					"name": "Query ISS Info",
+					"request": {
+						"url": "https://api.urthecast.com/v1/satellite_tracker/satellites/iss?api_key={{api_key}}&api_secret={{api_secret}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a specific satellite by key."
+					},
+					"response": []
+				},
+				{
+					"name": "Query Most Recent ISS TLEs",
+					"request": {
+						"url": "https://api.urthecast.com/v1/satellite_tracker/satellites/iss/tles?api_key={{api_key}}&api_secret={{api_secret}}&sort=-epoch",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of ISS TLEs."
+					},
+					"response": []
+				},
+				{
+					"name": "Query Deimos-1 Orbit Points",
+					"request": {
+						"url": "https://api.urthecast.com/v1/satellite_tracker/satellites/deimos-1/orbit_points?api_key={{api_key}}&api_secret={{api_secret}}&sort=-epoch",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of Deimos-1 orbit points."
+					},
+					"response": []
+				},
+				{
+					"name": "Query Sensor Platforms with GSD of < 10 m",
+					"request": {
+						"url": "https://api.urthecast.com/v1/satellite_tracker/sensor_platforms?api_key={{api_key}}&api_secret={{api_secret}}&gsd_lt=10",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "return a list of sensor platforms with < 10 m GSD."
+					},
+					"response": []
+				},
+				{
+					"name": "Query Future Capture Forecasts for Deimos-2",
+					"request": {
+						"url": "https://api.urthecast.com/v1/satellite_tracker/sensor_platforms/deimos-2/forecasts?api_key={{api_key}}&api_secret={{api_secret}}&type=future&sort=epoch",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Return a list of Deimos-2 forecasts."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
